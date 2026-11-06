@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>h14. 哈佛十四律</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon-180.png">
+<link rel="manifest" href="manifest.json">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:16px}
+body{font-family:Georgia,"Songti SC","STSong","SimSun",serif;
+ background:#FAF6EE;color:#231F1B;
+ padding:0 18px calc(40px + env(safe-area-inset-bottom))}
+.mono{font-family:Courier,monospace}
+header{padding:26px 2px 10px}
+.eyebrow{font-size:.68rem;letter-spacing:.34em;color:#A51C30;font-family:Courier,monospace;margin-bottom:10px}
+h1{font-size:2.3rem;line-height:1.1;font-weight:700;letter-spacing:.01em}
+h1 .dot{color:#A51C30}
+.sub{font-size:.86rem;color:#7B7365;margin-top:10px;line-height:1.7}
+.hw{color:#A51C30;font-weight:700}
+/* 点亮墙 */
+.wall{display:grid;grid-template-columns:repeat(14,1fr);gap:4px;margin:20px 0 6px}
+.w{aspect-ratio:1;background:#EFE8D6;border:1px solid #E2D8C2;border-radius:4px;
+ display:flex;align-items:center;justify-content:center;font-size:.5rem;color:#B6AB92;font-family:Courier,monospace}
+.w.on{background:#A51C30;border-color:#A51C30;color:#F6EDE4}
+.wprog{font-size:.72rem;color:#8A8070;font-family:Courier,monospace;letter-spacing:.12em;margin-bottom:18px}
+/* 区块标题 */
+.sech{font-size:.72rem;letter-spacing:.28em;color:#A51C30;font-family:Courier,monospace;
+ margin:26px 2px 12px;display:flex;align-items:center;gap:12px}
+.sech::after{content:"";flex:1;height:1px;background:#E2D8C2}
+/* 卡 */
+.card{background:#fff;border:1px solid #E6DCC8;border-radius:12px;
+ margin-bottom:12px;overflow:hidden;box-shadow:0 2px 8px rgba(90,30,20,.04)}
+.chead{padding:16px 16px 14px;cursor:pointer;display:flex;align-items:baseline;gap:12px}
+.num{font-family:Courier,monospace;font-size:1.05rem;font-weight:700;color:#C9BFA9;letter-spacing:.04em;flex:0 0 auto}
+.card.lit .num{color:#A51C30}
+.ct{flex:1;min-width:0}
+.zh{font-size:1.12rem;font-weight:700;line-height:1.3}
+.en{font-size:.62rem;letter-spacing:.22em;color:#A79D87;font-family:Courier,monospace;margin-top:4px}
+.cat{flex:0 0 auto;font-size:.62rem;color:#A51C30;border:1px solid #D8AEB2;border-radius:999px;
+ padding:3px 9px;letter-spacing:.14em;align-self:center;font-family:Courier,monospace;white-space:nowrap}
+.card.lit .cat{background:#A51C30;color:#F6EDE4;border-color:#A51C30}
+.arr{flex:0 0 auto;color:#B6AB92;font-size:1rem;align-self:center;transition:transform .25s}
+.open .arr{transform:rotate(90deg)}
+.cbody{display:none;padding:0 16px 16px;border-top:1px dashed #E6DCC8}
+.card.open .cbody{display:block}
+.cbody .one{font-size:.95rem;font-weight:700;color:#A51C30;margin:14px 0 10px;line-height:1.6}
+.cbody .how{font-size:.92rem;line-height:1.9;color:#3B362F}
+.fitbox{margin-top:12px;background:#FAF5EA;border-radius:8px;padding:10px 12px;font-size:.78rem;color:#7B7365;line-height:1.7}
+.fitbox b{color:#A51C30;font-size:.66rem;letter-spacing:.2em;font-family:Courier,monospace;display:block;margin-bottom:4px}
+.src{margin-top:10px;font-size:.7rem;color:#A79D87;line-height:1.6}
+.src b{color:#8A8070}
+.tryb{margin-top:14px;width:100%;border:none;border-radius:999px;padding:12px;
+ font-family:inherit;font-size:.88rem;font-weight:700;cursor:pointer;
+ background:#A51C30;color:#F6EDE4}
+.card.lit .tryb{background:#fff;color:#A51C30;border:1px solid #A51C30}
+.tryb:active{transform:scale(.98)}
+/* 终章 */
+.final{display:none;margin-top:30px;background:#A51C30;border-radius:14px;color:#F6EDE4;
+ padding:30px 22px;text-align:center;position:relative;overflow:hidden}
+.final.show{display:block}
+.final .seal{width:84px;height:84px;border:3px solid #F6EDE4;border-radius:50%;margin:0 auto 16px;
+ display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(-6deg)}
+.final .seal b{font-size:1.5rem;letter-spacing:.04em}
+.final .seal span{font-size:.56rem;letter-spacing:.3em;margin-top:2px}
+.final h2{font-size:1.5rem;margin-bottom:10px}
+.final p{font-size:.85rem;line-height:1.9;opacity:.92}
+.final .fom{margin-top:14px;font-size:.64rem;letter-spacing:.2em;font-family:Courier,monospace;opacity:.7}
+/* 出处 */
+.origin{margin-top:34px}
+.origin h3{font-size:.72rem;letter-spacing:.28em;color:#A51C30;font-family:Courier,monospace;margin-bottom:10px}
+.origin .note{font-size:.82rem;line-height:1.9;color:#3B362F;background:#fff;border:1px solid #E6DCC8;
+ border-radius:12px;padding:16px}
+.origin .note em{color:#A51C30;font-style:normal;font-weight:700}
+.oq{margin-top:10px;font-size:.68rem;color:#A79D87;line-height:1.8;font-family:Courier,monospace}
+footer{margin-top:30px;padding-top:14px;border-top:1px solid #E2D8C2;
+ font-size:.66rem;color:#A79D87;letter-spacing:.06em;line-height:1.9}
+toast{position:fixed;top:52%;left:50%;transform:translateX(-50%) translateY(20px);
+ background:rgba(165,28,48,.94);color:#F6EDE4;padding:11px 24px;border-radius:999px;
+ font-size:.82rem;opacity:0;transition:opacity .3s;z-index:99;white-space:nowrap;pointer-events:none}
+toast.show{opacity:.97}
+</style>
+</head>
+<body>
+<header>
+ <div class="eyebrow">X VIRAL · 14 RULES · TOP 1%</div>
+ <h1>h14<span class="dot">.</span> 哈佛十四律</h1>
+ <div class="sub">在 <span class="hw">X</span> 上疯传的 14 个技巧，据说让人超越 <span class="hw">99%</span> 的人。<br>
+ 每一条都简单到今天就能开始——点开细读，<b>用起来</b>的会点亮。</div>
+</header>
+
+<div class="wall" id="wall"></div>
+<div class="wprog" id="wprog">LIT — 0 / 14</div>
+
+<div id="list"></div>
+
+<section class="final" id="final">
+ <div class="seal"><b>1%</b><span>TOP</span></div>
+ <h2>你已经把 14 条全部点亮</h2>
+ <p>普通人与顶尖 1% 的差距，从来不在先天智力，<br>而在你日复一日选择坚持的习惯。<br>不必贪多——真正吃透一两条，就已经赢了。</p>
+ <div class="fom">EST. TODAY · KEEP THE STREAK</div>
+</section>
+
+<section class="origin">
+ <h3>TRUE ORIGIN · 真实出处</h3>
+ <div class="note">这 14 条技巧在 X 上被冠以「哈佛」之名疯传，但翻遍哈佛官网，并没有这份研究。<br>
+ 其实它们各有主人——<em>物理学家费曼、艾森豪威尔总统、番茄工作法的西里洛、《深度工作》的纽波特</em>……方法是真的，「哈佛」只是标题党。<br>
+ 出处已标注在每条技巧的末尾。<em>信方法，别信招牌。</em></div>
+ <div class="oq">14 RULES, 14 AUTHORS, 1 HEADLINE.</div>
+</section>
+
+<footer>
+ h14. 哈佛十四律 —— 灵感来自社交网络流传的「哈佛 14 技巧」清单，本站仅作整理与诚实标注。<br>
+ 点亮记录只保存在你自己的设备里。NOT AFFILIATED WITH HARVARD UNIVERSITY.
+</footer>
+<toast id="toast"></toast>
+
+<script>
+var D=[{"no": "01", "cat": "行动", "zh": "5 秒法则", "en": "THE 5-SECOND RULE", "one": "想到就倒数 5-4-3-2-1，数完立刻动。", "how": "犹豫会在念头产生后的几秒内出现。在心里倒数五个数，打断大脑拖延的循环——数到 1 就起身、拨号、换鞋出门。", "fit": "立刻起床 / 打那通难打的电话 / 开始训练", "src": "流行自梅尔·罗宾斯《5 Second Rule》"}, {"no": "02", "cat": "学习", "zh": "费曼技巧", "en": "THE FEYNMAN TECHNIQUE", "one": "能讲给 12 岁孩子听，才算真的学会。", "how": "把正在学的概念用大白话写下来，全程禁用专业术语。写到卡壳的地方就是你的知识盲区——回头重学那一块，再回来补上。", "fit": "任何新知识 / 考试 / 开会后的整理", "src": "物理学家理查德·费曼的学习方法"}, {"no": "03", "cat": "时间", "zh": "艾森豪威尔矩阵", "en": "THE EISENHOWER MATRIX", "one": "2×2 四格，先分轻重，再动手。", "how": "把所有任务放进四象限：紧急且重要→立刻做；重要不紧急→排期做；紧急不重要→委托他人；都不沾→直接删掉。忙碌的人先分类。", "fit": "任务堆积时 / 每周规划", "src": "源自艾森豪威尔总统的做法"}, {"no": "04", "cat": "行动", "zh": "两分钟法则", "en": "THE 2-MINUTE RULE", "one": "两分钟内能做完的事，现在就做。", "how": "小事一旦进待办清单就是心理负担。回消息、归档、转发，当下直接清掉，别让它堆积占用你的心神。", "fit": "回邮件 / 整理文件 / 发简短消息", "src": "出自大卫·艾伦《Getting Things Done》"}, {"no": "05", "cat": "时间", "zh": "番茄工作法", "en": "THE POMODORO TECHNIQUE", "one": "25 分钟只做一件事，然后休息 5 分钟。", "how": "手机放到远处，计时开始，全程只专注一件事。计时结束休息 5 分钟：走动、拉伸、喝水。完成 4 轮后长休 20-30 分钟。", "fit": "写作 / 编程 / 复习等一切需要专注的事", "src": "弗朗西斯科·西里洛 1980 年代发明"}, {"no": "06", "cat": "学习", "zh": "主动回忆", "en": "ACTIVE RECALL", "one": "合上笔记，先默写，再对照。", "how": "读完一章、开完一场会，合上笔记，凭记忆写下所有能想起来的，再对照原文查漏补缺。漏掉的部分，才是真正没装进脑子的。", "fit": "读书 / 上课 / 会议纪要", "src": "认知科学中反复验证的学习策略"}, {"no": "07", "cat": "习惯", "zh": "1% 法则", "en": "THE 1% RULE", "one": "每天进步 1%，一年是 37.8 倍。", "how": "多读一页书、多练一分钟、多走一步路——微小到几乎无法察觉。1.01 的 365 次方是 37.8，0.99 的 365 次方只剩 0.03。复利不响，但一直在算。", "fit": "任何想精进的技能 / 任何想养成的事", "src": "数学复利；因《掌控习惯》而流行"}, {"no": "08", "cat": "时间", "zh": "深度工作", "en": "DEEP WORK", "one": "在日历上留 2-4 小时，当成不能取消的会议。", "how": "关闭全部通知，把手机放到另一个房间，只攻克一件高价值任务。碎片化忙碌不带来成长，深度专注才拉开差距。", "fit": "核心项目 / 报告 / 创作", "src": "卡尔·纽波特《深度工作》"}, {"no": "09", "cat": "思维", "zh": "事前验尸法", "en": "THE PREMORTEM", "one": "开工前先假想：六个月后，它彻底失败了。", "how": "假设项目已经死掉，罗列所有可能的死因，针对每个隐患提前埋坑。问题还没来，就被挡住了——高手规避风险，普通人事后补救。", "fit": "新项目启动 / 重要决定之前", "src": "心理学家加里·克莱因的决策方法"}, {"no": "10", "cat": "习惯", "zh": "习惯堆叠", "en": "HABIT STACKING", "one": "把新习惯，挂在旧习惯后面。", "how": "找一个你已经天天做的动作，在它完成后立刻接上新的：「倒完咖啡，就写下今天最重要的三件事。」旧习惯成为新习惯的触发器。", "fit": "想加任何新习惯时", "src": "BJ 福格《Tiny Habits》锚定法"}, {"no": "11", "cat": "思维", "zh": "80/20 原则", "en": "THE 80/20 RULE", "one": "80% 的成果，来自 20% 的行动。", "how": "找出关键的那 20%，剩下的做减法：砍掉、委托、压缩时间。用更少的精力，拿到更好的结果。", "fit": "工作复盘 / 目标取舍", "src": "帕累托法则（1896）"}, {"no": "12", "cat": "思维", "zh": "双清单策略", "en": "THE TWO-LIST STRATEGY", "one": "5 个核心目标，加一张「别碰」清单。", "how": "写下本季度最重要的 5 个目标；再列出所有诱惑你偏离主线的事。前 5 件没完成，坚决不碰后者。清晰，来源于主动舍弃。", "fit": "季度规划 / 职业目标", "src": "流传的巴菲特与飞行员对话"}, {"no": "13", "cat": "习惯", "zh": "反思日记", "en": "THE REFLECTION JOURNAL", "one": "每晚 10 分钟，只写三件事。", "how": "今天什么顺利、什么不顺、明天具体改什么。不用长篇大论——它不是日记，是给自己搭建的反馈循环，每天迭代一点点。", "fit": "睡前 / 一天结束时", "src": "富兰克林式的每日自省传统"}, {"no": "14", "cat": "学习", "zh": "间隔重复", "en": "SPACED REPETITION", "one": "在第 1、3、7、14 天，回头复习。", "how": "遗忘是本能，复习是能力。学完新知识，按第二天、3 天后、7 天后、14 天后定点回顾，顺应记忆规律，远胜反复通读。可用 Anki 等闪卡工具。", "fit": "背单词 / 记知识点 / 学语言", "src": "艾宾浩斯遗忘曲线 → Anki"}];
+var LS='h14_log';
+var lit=JSON.parse(localStorage.getItem(LS)||'[]');
+function save(){localStorage.setItem(LS,JSON.stringify(lit))}
+function isLit(i){return lit.indexOf(i)>=0}
+
+function renderWall(){
+ var w=document.getElementById('wall');var h='';
+ D.forEach(function(d,i){h+='<div class="w'+(isLit(i)?' on':'')+'">'+d.no+'</div>'});
+ w.innerHTML=h;
+ var p=document.getElementById('wprog');
+ p.textContent='LIT — '+lit.length+' / 14'+(lit.length===14?' · TOP 1%':'');
+}
+function renderList(){
+ var el=document.getElementById('list');var h='';
+ h+='<div class="sech">RULES 01 — 14</div>';
+ D.forEach(function(d,i){
+  h+='<div class="card'+(isLit(i)?' lit':'')+'" id="c'+i+'">'
+  +'<div class="chead" onclick="tg('+i+')">'
+  +'<div class="num">'+d.no+'</div>'
+  +'<div class="ct"><div class="zh">'+d.zh+'</div><div class="en">'+d.en+'</div></div>'
+  +'<div class="cat">'+d.cat+'</div><div class="arr">›</div></div>'
+  +'<div class="cbody"><div class="one">'+d.one+'</div>'
+  +'<div class="how">'+d.how+'</div>'
+  +'<div class="fitbox"><b>适用</b>'+d.fit+'</div>'
+  +'<div class="src"><b>出处 · </b>'+d.src+'</div>'
+  +'<button class="tryb" onclick="mark('+i+')">'+(isLit(i)?'已用起来 — 点亮':'用起来 ✓')+'</button>'
+  +'</div></div>';
+ });
+ el.innerHTML=h;
+}
+function tg(i){document.getElementById('c'+i).classList.toggle('open')}
+function mark(i){
+ if(isLit(i)){lit.splice(lit.indexOf(i),1);save();
+  renderWall();renderList();
+  document.getElementById('c'+i).classList.add('open');
+  document.getElementById('final').classList.remove('show');
+  toast('已熄灭 '+D[i].no+' · '+D[i].zh);return}
+ lit.push(i);save();
+ renderWall();renderList();
+ document.getElementById('c'+i).classList.add('open');
+ toast(D[i].no+' '+D[i].zh+' — LIT');
+ if(lit.length===14){
+  setTimeout(function(){document.getElementById('final').classList.add('show')},350);
+  setTimeout(function(){window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})},700);
+ } else {document.getElementById('final').classList.remove('show')}
+}
+var tt;
+function toast(s){var t=document.getElementById('toast');t.textContent=s;t.classList.add('show');
+ clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('show')},2000)}
+renderWall();renderList();
+if(lit.length===14){document.getElementById('final').classList.add('show')}
+</script>
+</body>
+</html>
